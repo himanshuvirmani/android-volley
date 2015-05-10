@@ -50,6 +50,10 @@ public class VolleyLog {
         DEBUG = Log.isLoggable(TAG, Log.VERBOSE);
     }
 
+    public static void setVerbose(boolean verbose) {
+        DEBUG = verbose;
+    }
+
     public static void v(String format, Object... args) {
         if (DEBUG) {
             Log.v(TAG, buildMessage(format, args));

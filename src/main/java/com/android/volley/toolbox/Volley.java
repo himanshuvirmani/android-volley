@@ -25,6 +25,7 @@ import android.os.Build;
 import com.android.volley.Network;
 import com.android.volley.RequestQueue;
 
+import com.squareup.okhttp.OkHttpClient;
 import java.io.File;
 
 public class Volley {
@@ -54,7 +55,8 @@ public class Volley {
 
         if (stack == null) {
             if (Build.VERSION.SDK_INT >= 9) {
-                stack = new HurlStack();
+                //stack = new HurlStack();
+                stack = new OkHttpStack(new OkHttpClient());
             } else {
                 // Prior to Gingerbread, HttpUrlConnection was unreliable.
                 // See: http://android-developers.blogspot.com/2011/09/androids-http-clients.html
