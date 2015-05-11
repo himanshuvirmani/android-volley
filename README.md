@@ -26,9 +26,9 @@ Volley is already published to Maven Central.
 ### for Gradle
 
 ``` groovy
-	repositories {
-		mavenCentral()
-	}
+repositories {
+    mavenCentral()
+}
 ```
 
 ``` groovy
@@ -42,8 +42,7 @@ dependencies {
 Create a singleton request queue for network requests via volley.
 
 ``` java
-mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
-mImageLoaderQueue = Volley.newRequestQueue(context.getApplicationContext());
+RequestQueue mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
 ```
 
 To create a request
