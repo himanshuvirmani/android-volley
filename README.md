@@ -25,9 +25,51 @@ Volley is already published to Maven Central.
 
 ### for Gradle
 
+``` groovy
+	repositories {
+		mavenCentral()
+	}
 ```
-compile 'com.himanshuvirmani:volley-okhttp-gson-library:1.0.1'
+
+``` groovy
+dependencies {
+    compile 'com.himanshuvirmani:volley-okhttp-gson-library:1.0.1'
+}
 ```
+
+### code sample
+
+Create a singleton request queue for network requests via volley.
+
+``` java
+mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
+mImageLoaderQueue = Volley.newRequestQueue(context.getApplicationContext());
+```
+
+To create a request
+
+``` java
+public void getPostById(Response.Listener<Post> listener, Response.ErrorListener errorListener,
+      int id) {
+    mRequestQueue.add(new GetPostsById(listener, errorListener, id));
+}
+```
+
+Create a request Class that extends GsonRequest<RequestPayload,ResponsePojo>
+
+``` java
+public class GetPostsById extends GsonRequest<Void, Post> {
+
+  public GetPostsById(Response.Listener<Post> listener, Response.ErrorListener errorListener,
+      int id) {
+    super(Method.GET,
+        ApiConfig.BASE_URL + ApiConfig.GET_POST_BY_ID.replace("<ID>", String.valueOf(id)), listener,
+        errorListener);
+  }
+}
+```
+
+#### For complete code sample check [Android Base Template Code](https://github.com/himanshuvirmani/AndroidBaseTemplate)
 
 
 ## Attention  
