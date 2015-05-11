@@ -6,52 +6,60 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Map;
 
 public abstract class GsonRequest<S, T> extends Request<T> {
 
-  private final Type mType;
+  private final Type requestDataType;
+  private final Type responseDataType;
   private final Response.Listener<T> mListener;
   private final Map<String, String> mHeaders;
   private Gson mGson;
   private S mPayload;
   private String mURL;
 
-  public GsonRequest(int method, String url, Class<T> clazz, Response.Listener<T> listener,
+  public GsonRequest(int method, String url, Response.Listener<T> listener,
       ErrorListener errorListener, Map<String, String> headers, S payload) {
     super(method, url, errorListener);
-    VolleyLog.v("Invoking GsonRequest for " + url);
-    VolleyLog.v(clazz.getSimpleName()
-            + " : method="
-            + method
-            + " : url= "
-            + url
-            + " : headers = "
-            + headers
-            + " : mParams = "
-            + payload);
 
-    this.mType = clazz;
     this.mListener = listener;
     this.mURL = url;
     this.mHeaders = headers;
     this.mPayload = payload;
+
+    Type superclass = getClass().getGenericSuperclass();
+    this.requestDataType = ((ParameterizedType) superclass).getActualTypeArguments()[0];
+    this.responseDataType = ((ParameterizedType) superclass).getActualTypeArguments()[1];
+    VolleyLog.v("Invoking GsonRequest for " + url);
+    VolleyLog.v("request="
+        + requestDataType
+        + " : response="
+        + responseDataType
+        + " : method="
+        + method
+        + " : url= "
+        + url
+        + " : headers = "
+        + headers
+        + " : mParams = "
+        + payload);
   }
 
-  public GsonRequest(int method, String url, Class<T> clazz, Response.Listener<T> listener,
+  public GsonRequest(int method, String url, Response.Listener<T> listener,
       ErrorListener errorListener, Map<String, String> headers) {
-    this(method, url, clazz, listener, errorListener, headers, null);
+    this(method, url, listener, errorListener, headers, null);
   }
 
-  public GsonRequest(int method, String url, Class<T> clazz, Response.Listener<T> listener,
+  public GsonRequest(int method, String url, Response.Listener<T> listener,
       ErrorListener errorListener) {
-    this(method, url, clazz, listener, errorListener, null, null);
+    this(method, url, listener, errorListener, null, null);
   }
 
-  public GsonRequest(int method, String url, Class<T> clazz, Response.Listener<T> listener,
+  public GsonRequest(int method, String url, Response.Listener<T> listener,
       ErrorListener errorListener, S payload) {
-    this(method, url, clazz, listener, errorListener, null, payload);
+    this(method, url, listener, errorListener, null, payload);
   }
 
   /**
@@ -79,7 +87,7 @@ public abstract class GsonRequest<S, T> extends Request<T> {
 
   @Override public byte[] getBody() throws AuthFailureError {
     try {
-      return getGsonInstance().toJson(mPayload).getBytes(getParamsEncoding());
+      return getGsonInstance().toJson(mPayload, requestDataType).getBytes(getParamsEncoding());
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
       VolleyLog.e(e.toString());
@@ -97,7 +105,7 @@ public abstract class GsonRequest<S, T> extends Request<T> {
       String json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
       VolleyLog.v("Receiving response for " + mURL);
       VolleyLog.v("parseNetworkResponse : "
-          + mType
+          + responseDataType
           + " :url="
           + mURL
           + " :statusCode="
@@ -105,7 +113,8 @@ public abstract class GsonRequest<S, T> extends Request<T> {
           + " :JSON= "
           + json);
 
-      return com.android.volley.Response.success((T) getGsonInstance().fromJson(json, mType),
+      return com.android.volley.Response.success(
+          (T) getGsonInstance().fromJson(json, responseDataType),
           HttpHeaderParser.parseCacheHeaders(response));
     } catch (UnsupportedEncodingException e) {
       return com.android.volley.Response.error(new ParseError(e));
