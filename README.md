@@ -1,6 +1,6 @@
 Android Volley  
 ----------
-This is an unofficial mirror for [android volley library](https://android.googlesource.com/platform/frameworks/volley), the source code will synchronize periodically with the official volley repository.
+This is an unofficial mirror for [android volley library](https://android.googlesource.com/platform/frameworks/volley) and is forked from mcxiaoke/android-volley, the source code will synchronize periodically with the official volley repository.
 
 
 ## Status
@@ -32,5 +32,6 @@ compile 'com.himanshuvirmani:volley-okhttp-gson-library:1.0.1'
 
 ## Attention  
 
-This project is just a mirror of volley, if you have found any bugs or need some features, please create an issue at [AOSP Issue Tracker](https://code.google.com/p/android/issues/list).
+For any Gson or OkHttp issue/suggestions please write back to me at himanshuvirmani@gmail.com or open an issue here.
+Apart from that this project is just a mirror of volley, if you have found any bugs or need some features, please create an issue at [AOSP Issue Tracker](https://code.google.com/p/android/issues/list).
 
