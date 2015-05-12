@@ -1,6 +1,6 @@
 Android Volley  
 ----------
-This is an unofficial mirror for [android volley library](https://android.googlesource.com/platform/frameworks/volley) and is forked from mcxiaoke/android-volley, the source code will synchronize periodically with the official volley repository. Purpose of forking and publishing this library was to give [OkHttp](http://square.github.io/okhttp/) and [Gson](https://github.com/google/gson) Serialistion/Deserialisation out of the box. This will reduce down any boilerplate code you would otherwise have to write to embed and use these.
+This is an unofficial mirror for [android volley library](https://android.googlesource.com/platform/frameworks/volley) and is forked from mcxiaoke/android-volley, the source code will synchronize periodically with the official volley repository. Purpose of forking and publishing this library was to give [OkHttp](http://square.github.io/okhttp/) and [Gson](https://github.com/google/gson) Serialization/Deserialization out of the box. This will reduce down any boilerplate code you would otherwise have to write to embed and use these.
 
 
 ## Status
