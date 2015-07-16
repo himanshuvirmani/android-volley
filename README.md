@@ -7,7 +7,7 @@ This is an unofficial mirror for [android volley library](https://android.google
 
 Volley is already published to Maven Central.  
 
-* [![Maven Central](https://img.shields.io/badge/2015.05.11-com.himanshuvirmani%3Avolley--okhttp--gson--library%3A1.0.1-green.svg)](http://search.maven.org/#artifactdetails%7Ccom.himanshuvirmani%7Cvolley-okhttp-gson-library%7C1.0.1%7Cjar) 
+* [![Maven Central](https://img.shields.io/badge/2015.07.16-com.himanshuvirmani%3Avolley--okhttp--gson--library%3A1.0.2-green.svg)](http://search.maven.org/#artifactdetails%7Ccom.himanshuvirmani%7Cvolley-okhttp-gson-library%7C1.0.2%7Cjar) 
 
 ## Usage
 
@@ -17,7 +17,7 @@ Volley is already published to Maven Central.
 <dependency>
     <groupId>com.himanshuvirmani</groupId>
     <artifactId>volley-okhttp-gson-library</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ repositories {
 
 ``` groovy
 dependencies {
-    compile 'com.himanshuvirmani:volley-okhttp-gson-library:1.0.1'
+    compile 'com.himanshuvirmani:volley-okhttp-gson-library:1.0.2'
 }
 
 ### code sample
