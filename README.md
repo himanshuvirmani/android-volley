@@ -9,7 +9,6 @@ Volley is already published to Maven Central.
 
 * [![Maven Central](https://img.shields.io/badge/2015.05.11-com.himanshuvirmani%3Avolley--okhttp--gson--library%3A1.0.1-green.svg)](http://search.maven.org/#artifactdetails%7Ccom.himanshuvirmani%7Cvolley-okhttp-gson-library%7C1.0.1%7Cjar) 
 
-
 ## Usage
 
 ### for Maven
@@ -35,7 +34,6 @@ repositories {
 dependencies {
     compile 'com.himanshuvirmani:volley-okhttp-gson-library:1.0.1'
 }
-```
 
 ### code sample
 
