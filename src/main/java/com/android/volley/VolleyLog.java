@@ -85,25 +85,31 @@ public class VolleyLog {
      * calling thread ID and method name.
      */
     private static String buildMessage(String format, Object... args) {
-        String msg = (args == null) ? format : String.format(Locale.US, format, args);
-        StackTraceElement[] trace = new Throwable().fillInStackTrace().getStackTrace();
+        try {
+            String msg = (args == null) ? format : String.format(Locale.US, format, args);
+            StackTraceElement[] trace = new Throwable().fillInStackTrace().getStackTrace();
 
-        String caller = "<unknown>";
-        // Walk up the stack looking for the first caller outside of VolleyLog.
-        // It will be at least two frames up, so start there.
-        for (int i = 2; i < trace.length; i++) {
-            Class<?> clazz = trace[i].getClass();
-            if (!clazz.equals(VolleyLog.class)) {
-                String callingClass = trace[i].getClassName();
-                callingClass = callingClass.substring(callingClass.lastIndexOf('.') + 1);
-                callingClass = callingClass.substring(callingClass.lastIndexOf('$') + 1);
+            String caller = "<unknown>";
+            // Walk up the stack looking for the first caller outside of VolleyLog.
+            // It will be at least two frames up, so start there.
+            for (int i = 2; i < trace.length; i++) {
+                Class<?> clazz = trace[i].getClass();
+                if (!clazz.equals(VolleyLog.class)) {
+                    String callingClass = trace[i].getClassName();
+                    callingClass = callingClass.substring(callingClass.lastIndexOf('.') + 1);
+                    callingClass = callingClass.substring(callingClass.lastIndexOf('$') + 1);
 
-                caller = callingClass + "." + trace[i].getMethodName();
-                break;
+                    caller = callingClass + "." + trace[i].getMethodName();
+                    break;
+                }
             }
+            return String.format(Locale.US, "[%d] %s: %s", Thread.currentThread().getId(), caller,
+                msg);
+        } catch (Exception e) {
+            Log.e(TAG,"Error printing volley log");
+            e.printStackTrace();
         }
-        return String.format(Locale.US, "[%d] %s: %s",
-                Thread.currentThread().getId(), caller, msg);
+        return "";
     }
 
     /**
